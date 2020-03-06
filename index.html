@@ -8,22 +8,21 @@
 <body>
     <h1>JSON</h1>
     <h2>Javascript Object Notation</h2>
+    <ul id="users-container"></ul>
     <script>
-        const user = {
-            id: 423, 
-            name: "Utton Das",
-            lover: {
-                name: "jamila",
-                fevFood: "pizza"
-            },
-            friendsAge: [23,53,54],
-            friends: ["kamal","jamal", "samal"],
-            };
-        // {"id":423,"name":"Utton Das"}
-        const userJSON = JSON.stringify(user);
-        console.log(userJSON);
-        const userFromJSON = JSON.parse(userJSON);
-        console.log(userFromJSON);
+        fetch('https://jsonplaceholder.typicode.com/users')
+        .then(response => response.json())
+        .then(json => displayUser(json))
+        function displayUser(users){
+            const userName = users.map(user =>user.username);
+            const ul = document.getElementById("users-container");
+            for(let i = 0; i < userName.length; i++){
+                const user = userName[i];
+                const li = document.createElement("li");
+                li.innerText = user;
+                ul.appendChild(li);
+            }
+        }
     </script>
 </body>
 </html>
